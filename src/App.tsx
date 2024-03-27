@@ -1,31 +1,27 @@
+import { Route, Routes } from 'react-router-dom'
 import './App.css'
-import Card from './component/Card'
-import { CardVariant } from './component/Card'
-import UserList from './component/UserList'
-import { IUser } from './types/types'
-// import { IUser } from './types/types';
+import TodosPage from './component/TodosPage'
+import UserPage from './component/UserPage'
+import NavBar from './component/NavBar'
+import EventExample from './component/EventExample'
+import UserItemPage from './component/UserItemPage'
+import TodosItemPage from './component/TodosItemPage'
 function App() {
 
-  const users: IUser[] = [
-    {id: 1, name: 'Egor', email: 'egor@gmail.com', address: {city: 'Kostroma', street: 'Lenina', zipcode: '123451'}},
-    {id: 2, name: 'Andry', email: 'spider_man@gmail.com', address: {city: 'Kostroma', street: 'Pushkina', zipcode: '123451'}}
-  ]
 
   return (
     <div>
-      <Card
-        variant={CardVariant.primary}
-        width='200px'
-        height='200px'
-      >
-        <button>Click</button>
-        <div>sdsd</div>
-      </Card>
-      <UserList
-        users={users}
-      />
+        <NavBar/>
+        <Routes>
+            <Route path='/todos' Component={TodosPage}/>
+            <Route path='/users' Component={UserPage}/>
+            <Route path='/users/:id' Component={UserItemPage}/>
+            <Route path='/todos/:id' Component={TodosItemPage}/>
+            <Route path='/drag' Component={EventExample}/>
+        </Routes>
     </div>
   )
 }
 
 export default App
+
