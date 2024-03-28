@@ -1,36 +1,39 @@
-import axios from 'axios';
-import { FC, useEffect, useState } from 'react';
-import { IUser } from '../types/types';
-import List from './List';
-import UserItem from './UserItem';
-import { useNavigate } from 'react-router-dom';
+import { FC, useEffect, useState } from "react";
+import List from "./List";
+import { IUser } from "../types/types";
+import UserItem from "./UserItem";
+import axios from "axios";
+import EventExample from "./EventExample";
+import { useNavigate } from "react-router-dom";
 
 const UserPage: FC = () => {
 
-    const [user, setUser] = useState <IUser[]> ([])
+    const [users, setUsers] = useState<IUser[]>([])
     const navigate = useNavigate()
 
-    useEffect(() => {
-      fetchUser()
-    }, [])
+     const fetchUsers = async () => {
+        try {
+          const response = await axios.get<IUser[]>('https://jsonplaceholder.typicode.com/users')
+          setUsers(response.data)
+        } catch (e) {
+          alert(e);
+        }
+    }
   
-    //Принимаем users с сервера
-    async function fetchUser() {
-      try {
-       const response = await axios.get<IUser[]>('https://jsonplaceholder.typicode.com/users')
-       setUser(response.data)
-      } catch (e) {
-        console.log(e);
-      }
-    } 
-    return (
-        <div>
-            <h1>Users</h1>
+    useEffect(() => {
+      fetchUsers()
+    }, [])
+
+return (
+    <>
+        <h1 style={{marginTop: 50}}>Users</h1>
+        <EventExample/>
+        <hr/>
         <List
-            items={user}
-            renderItem={(user: IUser) => <UserItem onClick={(user) => navigate(`${user.id}`)} user={user} key={user.id}/>}
+            items={users}
+            renderItem={(user: IUser) => <UserItem onClick={(user) => navigate(`/users/${user.id}`)} user={user} key={user.id}/>}
         />
-        </div>
+    </>
     );
 };
 

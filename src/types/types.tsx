@@ -1,6 +1,7 @@
- export interface IAdress {
-    city: string
+
+export interface IAddress {
     street: string
+    city: string
     zipcode: string
 }
 
@@ -8,7 +9,7 @@ export interface IUser {
     id: number
     name: string
     email: string
-    address: IAdress
+    address: IAddress
 }
 
 export interface ITodo {

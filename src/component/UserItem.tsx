@@ -1,14 +1,29 @@
 import { FC } from "react";
 import { IUser } from "../types/types";
-interface UseritemProps {
+import { Button, Card } from "react-bootstrap";
+
+interface UserItemProps {
     user: IUser
     onClick: (user: IUser) => void
 }
 
-const UserItem: FC <UseritemProps> = ({user, onClick}) => {
+const UserItem: FC <UserItemProps> = ({user, onClick}) => {
+
     return (
-        <div onClick={() => onClick(user)} style={{padding: 20, border: '1px solid black', marginTop: 10}}>
-            {user.id}. {user.name} проживает в городе {user.address.city} на улице {user.address.street}
+        <div>
+            <Card style={{marginTop: '50px'}}>
+                <Card.Title>
+                    {user.id}. {user.name}
+                </Card.Title>
+                <Card.Body>
+                    <Card.Text>{user.address.city}</Card.Text>
+                    <hr/>
+                    <Card.Text>{user.address.street}</Card.Text>
+                    <hr/>
+                    <Card.Text>{user.address.zipcode}</Card.Text>
+                </Card.Body>
+                <Button onClick={() => onClick(user)} variant="outline-dark">Профиль</Button>
+            </Card>
         </div>
     );
 };

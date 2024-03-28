@@ -1,37 +1,37 @@
+import axios from "axios";
 import { FC, useEffect, useState } from "react";
 import { ITodo } from "../types/types";
-import axios from "axios";
 import List from "./List";
 import TodoItem from "./TodoItem";
+import EventExample from "./EventExample";
 
 const TodosPage: FC = () => {
-    
-  const [todo, setTodo] = useState <ITodo[]> ([])
 
-  useEffect(() => {
-    fetchTodo()
-    console.log(todo);
-  }, [])
+  const [todos, setTodos] = useState<ITodo[]>([])
 
-
-  //Принимаем todo с сервера
-  async function fetchTodo() {
+  const fetchTodos = async () => {
     try {
-       const response = await axios.get<ITodo[]>('https://jsonplaceholder.typicode.com/todos?_limit=10')
-       setTodo(response.data)
+      const response = await axios.get<ITodo[]>('https://jsonplaceholder.typicode.com/todos?_limit=10')
+      setTodos(response.data)
     } catch (e) {
-      console.log(e);
+      alert(e)
     }
   }
- 
+
+  useEffect(() => {
+    fetchTodos()
+  }, [])
+
     return (
-        <div>
-            <h1>Todos</h1>
-            <List
-                items={todo}
-                renderItem={(todo: ITodo) => <TodoItem todo={todo} key={todo.id}/>}
-            />
-        </div>
+    <>
+        <h1 style={{marginTop: 30}}>Posts</h1>
+        <EventExample/>
+        <hr/>
+        <List
+            items={todos}
+            renderItem={(todo: ITodo) => <TodoItem todo={todo} key={todo.id}/>}
+        />
+    </>
     );
 };
 

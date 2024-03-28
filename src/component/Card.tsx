@@ -1,33 +1,32 @@
 import React, {FC} from "react";
 
-export enum CardVariant {
+//Создание enum для props outline
+export const enum CardVariant {
     outlined = 'outlined',
     primary = 'primary'
 }
 
+//Создание интерфейса для типизации props
 interface CardProps {
+    height?: string
     width?: string
-    height?: string,
-    variant: CardVariant
-    children?: React.ReactNode
+    variant?: CardVariant
+    children: React.ReactNode
 }
 
-const Card: FC <CardProps> = ({
-    width,
-    height, 
-    variant, 
-    children
-    }) => {
-    
+const Card: FC <CardProps> = ({width, height, children, variant}) => {
+
+
     return (
-        <div 
+        <div className="Card__Block" 
             style={{
-            width, 
-            height, 
-            border: variant === CardVariant.outlined ? '1px solid black' : 'none',
-            background: variant === CardVariant.primary ? 'lightgray' : ''
-            }}
-        >
+                width, 
+                height, 
+                border: 
+                variant === CardVariant.outlined ? '1 px solid gray' : 'none',
+                background:
+                variant === CardVariant.primary ? 'lightgray' : ''
+                }}>
             {children}
         </div>
     );
